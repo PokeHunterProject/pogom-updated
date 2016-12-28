@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pokémon Go Map - Statistics</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/static/styles/stats.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="static/favicon.ico">
+    <style>
+        .table > tbody > tr > td {
+            vertical-align: middle;
+        }
+        th.sorted.ascending:after {
+            content: "  \2191";
+        }
+        th.sorted.descending:after {
+            content: "  \2193";
+        }
+        th {
+            cursor: pointer;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+<div class="container col-md-6 col-md-offset-3 margin-top-15">
+    <a href="../" class="btn btn-default">Back to Map</a>
+    <h1>Pokestats</h1>
+    <div class="form-group notify-selector col-sm-4">
+      <select class="form-control" id="sel1">
+        <option value="1">Notify for All</option>
+        <option value="2">Uncommon</option>
+        <option value="3">Rare</option>
+        <option value="4">Very Rare</option>
+        <option value="5">Ultra Rare</option>
+        <option default value="6">None</option>
+      </select>
+    </div>
+    <table id="statstable" class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th class="col-sm-1">#</th>
+                <th class="col-sm-1 text-right">ID</th>
+                <th class="col-sm-1">Icon</th>
+                <th>Name</th>
+                <th class="col-sm-1">Last seen</th>
+                <th class="text-right">Count</th>
+                <th class="text-right">%</th>
+                <th class="notify">Notify</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pokemon in pokemons %}
+                <tr>
+                    <td class="col-sm-1" data-sort-value="{{ loop.index }}">{{ loop.index }}</td>
+                    <td class="col-sm-1 text-right" data-sort-value="{{ pokemon.pokemon_id }}">
+                        <a href="http://pokemondb.net/pokedex/{{ pokemon.pokemon_id }}" target="_blank">
+                            <strong>#{{pokemon.pokemon_id}}</strong>
+                        </a>
+                    </td>
+                    <td class="col-sm-1" data-sort-value="{{ pokemon.pokemon_id }}">
+                        <img width="32px" height="32px" src='static/icons/{{pokemon.pokemon_id}}.png'>
+                    </td>
+                    <td><strong>{{pokemon.pokemon_name}}</strong></td>
+                    <td class="col-sm-1">
+                        {% if pokemon.lastseen is not none %}   
+                            {{ pokemon.lastseen.strftime('%d %b, %H:%M') }}
+                        {% else %}
+                            never
+                        {%endif %}
+                    </td>
+                    <td class="text-right col-sm-1" data-sort-value="{{ pokemon.count }}">
+                        {{ '{:,}'.format(pokemon.count)}}
+                    </td>
+                    <td class="text-right col-sm-1" data-sort-value="{{ pokemon.count / total * 100 }}">
+                        {% print '{:4.2g}'.format(pokemon.count / total * 100) %}%
+                    </td>
+                    <td class="text-center col-sm-1">
+                        <input type="checkbox" name="" id="notify-{{pokemon.pokemon_id}}" class="notify-checkbox" value="{{pokemon.pokemon_id}}">
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td class="col-sm-1"></td>
+                <td class="col-sm-1"></td>
+                <td class="col-sm-1"></td>
+                <td></td>
+                <th class="text-right col-sm-1">{{ '{:,}'.format(total)}}</th>
+                <th class="text-right col-sm-1">100%</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="/static/jquery.tablesort.min.js"></script>
+<script>
+    $(document).ready(function (){
+        $('#statstable').tablesort();
+        $('thead th.notify').data('sortBy', function(th, td, tablesort) {
+            return td.find("input")[0].checked;
+        });
+    });
+</script>
+<script async defer type="text/javascript" src="/static/notify.js"></script>
+</body>
+</html>
