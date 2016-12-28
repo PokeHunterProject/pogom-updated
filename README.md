@@ -1,4 +1,4 @@
-# Still running on 0.45.0, currently unsafe to use
+# Running on the 0.51 api
 
 # PoGoMap
 The fastest Pokémon Go map available.
