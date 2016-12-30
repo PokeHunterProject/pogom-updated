@@ -24,7 +24,7 @@ Everything else is configured through the Web UI!
 **Optional:** You can tell PoGoMap to use MySQL or PostgreSQL. You will need to install a python interface for the database system of your choice (i.e. `pip install mysqlclient` for MySQL or `pip install psycopg2` for PostgreSQL). You will also need to specify the `--db` flag when starting `runserver.py` and pass it a valid database url string as specified in the [Peewee docs](http://docs.peewee-orm.com/en/latest/peewee/playhouse.html#db-url).
 
 ##Usage
-
+ - Run the scanner with the argument -k for the hashing key (ex. python runserver.py -k abcd)
  - Visit `http://<ip>:<port>/` (by default: `http://127.0.0.1:5000/`)
  - On the first run you will be redirected to a configuration page
    - Enter your Google Maps Api Key
