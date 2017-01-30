@@ -38,7 +38,7 @@ from . import __title__, __version__, __copyright__, __patchedBy__
 from .rpc_api import RpcApi
 from .auth_ptc import AuthPtc
 from .auth_google import AuthGoogle
-from .exceptions import AuthException, NotLoggedInException, ServerBusyOrOfflineException, NoPlayerPositionSetException, EmptySubrequestChainException, ServerApiEndpointRedirectException, AuthTokenExpiredException
+from .exceptions import AuthException, NotLoggedInException, ServerBusyOrOfflineException, NoPlayerPositionSetException, ServerApiEndpointRedirectException, AuthTokenExpiredException
 
 from . import protos
 from POGOProtos.Networking.Requests.RequestType_pb2 import RequestType
@@ -130,7 +130,7 @@ class PGoApi:
 
             position = kwargs.pop('position')
             callback = kwargs.pop('callback')
-			
+
             priority = kwargs.pop('priority') if 'priority' in kwargs else 10.0
 
             if kwargs:
@@ -169,14 +169,9 @@ class PGoApi:
 
 class PGoApiWorker(Thread):
     THROTTLE_TIME = 10.0
+
     # In case the server returns a status code 3, this has to be requested
     SC_3_REQUESTS = [RequestType.Value("GET_PLAYER")]
-	
-    getPlayerReq = [RequestType.Value("GET_PLAYER")]
-    getHatchedEggsReq = [RequestType.Value("GET_HATCHED_EGGS")]
-    getInventoryReq = [RequestType.Value("GET_INVENTORY")]
-    checkAwardedBadgesReq = [RequestType.Value("CHECK_AWARDED_BADGES")]
-    downloadSettingsReq = [RequestType.Value("DOWNLOAD_SETTINGS")]
 
     def __init__(self, signature_lib_path, hash_lib_path, work_queue, auth_queue, hashKey):
         Thread.__init__(self)
@@ -187,6 +182,7 @@ class PGoApiWorker(Thread):
         self._auth_queue = auth_queue
 
         self._session = requests.session()
+
         self._session.headers.update({'User-Agent': 'Niantic App'})
         self._session.verify = True
 
@@ -296,7 +292,7 @@ class PGoApiWorker(Thread):
                 else:
                     again = False
                     auth_provider.code_three_counter = 0
-                    
+
                 if auth_provider.code_three_counter > 1:
                     self.log.info("Received two consecutive status_code 3 on account {}, probably banned.".format(auth_provider.username))
 
@@ -307,17 +303,9 @@ class PGoApiWorker(Thread):
         consecutive_fails = 0
 
         while not auth_provider.user_login():
-            sleep_t = min(math.exp(consecutive_fails / 1.7), 5 * 60)
-            self.log.info('Login failed, retrying in {:.2f} seconds'.format(sleep_t))
-            consecutive_fails += 1
-            time.sleep(sleep_t)
-            if consecutive_fails <= 5:
-                raise AuthException('Login failed five times.')
-				
-        #login_req = self.getPlayerReq + self.getHatchedEggsReq + self.getInventoryReq + self.checkAwardedBadgesReq + self.downloadSettingsReq
-        #response = self.rpc_api.request(auth_provider.get_api_endpoint(), login_req, position)
+            raise AuthException('Login failed')
 
-        self.log.info('Login successful: {}'.format(auth_provider.username))
+        self.log.info('Login successful for account: {}'.format(auth_provider.username))
 
     def _login_if_necessary(self, auth_provider, position):
         if not auth_provider.is_login() or auth_provider._access_token_expiry < time.time() + 120:

@@ -32,6 +32,7 @@ import six
 import json
 import logging
 import requests
+import os
 
 from urllib.parse import parse_qs
 
@@ -51,6 +52,8 @@ class AuthPtc(Auth):
         self._auth_provider = 'ptc'
 
         self._session = requests.session()
+        self._session.headers = {'User-Agent': 'pokemongo/0 CFNetwork/758.5.3 Darwin/15.6.0'}
+
         self._session.verify = True
 
     def user_login(self):
@@ -60,7 +63,7 @@ class AuthPtc(Auth):
             raise AuthException("Username/password not correctly specified")
 
         self._session.cookies.clear()
-        head = {'User-Agent': 'niantic'}
+        head = {'User-Agent': 'pokemongo/0 CFNetwork/758.5.3 Darwin/15.6.0'}
         try:
             r = self._session.get(self.PTC_LOGIN_URL, headers=head, timeout=10)
         except Exception as e:

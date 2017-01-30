@@ -47,6 +47,13 @@ _GETPLAYERMESSAGE_PLAYERLOCALE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='timezone', full_name='pogoprotos.networking.requests.messages.GetPlayerMessage.PlayerLocale.timezone', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -59,8 +66,8 @@ _GETPLAYERMESSAGE_PLAYERLOCALE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=223,
-  serialized_end=272,
+  serialized_start=225,
+  serialized_end=292,
 )
 
 _GETPLAYERMESSAGE = _descriptor.Descriptor(
@@ -89,8 +96,8 @@ _GETPLAYERMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=108,
-  serialized_end=272,
+  serialized_start=110,
+  serialized_end=292,
 )
 
 _GETPLAYERMESSAGE_PLAYERLOCALE.containing_type = _GETPLAYERMESSAGE

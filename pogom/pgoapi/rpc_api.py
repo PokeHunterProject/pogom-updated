@@ -54,6 +54,7 @@ from POGOProtos.Networking.Envelopes.ResponseEnvelope_pb2 import ResponseEnvelop
 from POGOProtos.Networking.Requests.RequestType_pb2 import RequestType
 from POGOProtos.Networking.Envelopes.SignalAgglomUpdates_pb2 import SignalAgglomUpdates
 from POGOProtos.Networking.Platform.Requests.SendEncryptedSignatureRequest_pb2 import SendEncryptedSignatureRequest
+from POGOProtos.Networking.Platform.Requests.plat_eight_pb2 import PlatEight
 
 
 class RpcApi:
@@ -276,7 +277,7 @@ class RpcApi:
             sen.gravity_z = random.triangular(-1, .7, -0.8)
             sen.status = 3
 
-            sig.field25 = 9614703498812943922
+            sig.field25 = 76506539888958491
 			
             if self.device_info:
                 for key in self.device_info:
@@ -284,8 +285,19 @@ class RpcApi:
 
             signal_agglom_proto = sig.SerializeToString()
 
+            try:
+                if request.requests[0].request_type in (RequestType.Value('GET_MAP_OBJECTS'), RequestType.Value('GET_PLAYER')):
+                    plat = request.platform_requests.add()
+                    plat_eight = PlatEight()
+                    plat_eight.field1 = 'e40c3e64817d9c96d99d28f6488a2efc40b11046'
+                    plat.type = 8
+                    plat.request_message = plat_eight.SerializeToString()
+            except (IndexError, AttributeError):
+                pass
+				
             sig_request = SendEncryptedSignatureRequest()
             sig_request.encrypted_signature = self._generate_signature(signal_agglom_proto, sig.timestamp_ms_since_start)
+				
             plat = request.platform_requests.add()
             plat.type = 6
             plat.request_message = sig_request.SerializeToString()

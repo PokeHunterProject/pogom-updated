@@ -62,7 +62,42 @@ class UnexpectedResponseException(Exception):
 
 class AuthTokenExpiredException(Exception):
     pass
+	
+class HashServerException(Exception):
+    """Parent class of all hashing server errors"""
+	
+class BadRequestException(Exception):
+    """Raised when HTTP code 400 is returned"""
 
+class BadHashRequestException(BadRequestException):
+    """Raised when hashing server returns code 400"""
+	
+class BannedAccountException(Exception):
+    """Raised when an account is banned"""
+	
+class MalformedResponseException(Exception):
+    """Raised when the response is empty or not in an expected format"""
+
+class MalformedNianticResponseException(Exception):
+    """Raised when a Niantic response is empty or not in an expected format"""
+
+class MalformedHashResponseException(Exception):
+    """Raised when the response from the hash server cannot be parsed."""
+	
+class HashingOfflineException(Exception):
+    """Raised when unable to establish a conection with the hashing server"""
+
+class HashingForbiddenException(Exception):
+    """Raised when the hashing server returns 403"""
+
+class TempHashingBanException(Exception):
+    """Raised when your IP is temporarily banned for sending too many requests with invalid keys."""
+	
+class HashingQuotaExceededException(Exception):
+    """Raised when you exceed your hashing server quota"""
+	
+class UnexpectedHashResponseException(Exception):
+    """Raised when an unhandled HTTP code is received from the hash server"""
 
 class ServerApiEndpointRedirectException(Exception):
     def __init__(self):
