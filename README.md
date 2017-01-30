@@ -1,4 +1,4 @@
-# Running on the 0.51 api
+# Running on a beta implementation of the 0.53 api
 
 # PoGoMap
 The fastest Pokémon Go map available.
