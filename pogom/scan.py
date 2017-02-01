@@ -36,6 +36,7 @@ class ScanMetrics:
     NUM_THREADS = 0
     NUM_ACCOUNTS = 0
     CURRENT_SCAN_PERCENT = 0.0
+    testParse = 0
 
 
 class Scanner(Thread):
@@ -76,6 +77,10 @@ class Scanner(Thread):
             else:
                 ScanMetrics.CURRENT_SCAN_PERCENT = 0
             log.info('Completed {:5.2f}% of scan.'.format(ScanMetrics.CURRENT_SCAN_PERCENT))
+            
+    @staticmethod
+    def callback2(response_dict):
+        testParse = 0
 
     def scan(self):
         ScanMetrics.NUM_STEPS = len(self.scan_config.COVER)
@@ -98,6 +103,8 @@ class Scanner(Thread):
                 since_timestamp_ms=timestamps,
                 position=next_pos,
                 callback=Scanner.callback)
+            
+            self.api.download_remote_config_version(position=next_pos, platform = 1, app_version = 5301, callback=Scanner.callback2)
 
         while not self.api.is_work_queue_empty():
             # Location change
