@@ -11,7 +11,7 @@ Heavily using [pgoapi](https://github.com/keyphact/pgoapi). Shout-out to the Unk
 
 **Note:** If you are upgrading from the last version, you will have to update and/or reinstall the requirements.
 
-1. Clone the repository `git clone https://github.com/favll/pogom.git`
+1. Clone the repository `git clone https://github.com/PokeHunterProject/pogom-updated.git`
 2. Install the dependencies `pip install -r requirements.txt`   *(if you have problems during this step, check [these issues](https://github.com/favll/pogom/issues?utf8=%E2%9C%93&q=is%3Aissue%20label%3Adependencies%20) for help)*
 3. Start the server by running `python runserver.py`
 
