@@ -35,7 +35,7 @@ Everything else is configured through the Web UI!
 
 ##Features
 - [x] Extremely fast (using multiple accounts)
-- [x] Multiple locations
+- [x] Multiple locations (not recommended anymore)
 - [x] Perfect coverage (using a perfect hexagonal grid of radius 70m)
 - [x] Everything configurable from the browser (bye bye command-line flags)
 - [x] Hide common Pokemon
@@ -45,6 +45,7 @@ Everything else is configured through the Web UI!
 - [x] Browser Notifications
 - [x] Heatmaps
 - [x] Telegram notification with [pogomBOT](http://github.com/eugenio412/pogomBOT)
+- [x] Latest hashing by using hashing keys (-k your_key_here)
 
 ##TODO
 - Webhooks/Pushbullet notifications
