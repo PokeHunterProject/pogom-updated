@@ -13,7 +13,7 @@ class HashServer(HashEngine):
 
     def __init__(self, auth_token):
         self.status = {}
-        self.endpoint = "http://pokehash.buddyauth.com/api/v123_1/hash"
+        self.endpoint = "http://pokehash.buddyauth.com/api/v125/hash"
         self.headers = {'content-type': 'application/json', 'Accept' : 'application/json', 'X-AuthToken' : auth_token}
 
         self._session = requests.session()
