@@ -104,7 +104,7 @@ class Scanner(Thread):
                 position=next_pos,
                 callback=Scanner.callback)
             
-            self.api.download_remote_config_version(position=next_pos, platform = 1, app_version = 5301, callback=Scanner.callback2)
+            self.api.download_remote_config_version(position=next_pos, platform = 1, app_version = 5500, callback=Scanner.callback2)
 
         while not self.api.is_work_queue_empty():
             # Location change
