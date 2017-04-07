@@ -1,7 +1,11 @@
-# Running on a beta implementation of the 0.53 api
+#No longer maintained
+I don't have time to update the scanner every time an API update happens, feel free to send PR's to update this yourself.
 
-# PoGoMap
+PoGoMap
+
 The fastest Pokémon Go map available.
+
+Running on a beta implementation of the 0.53 api
 
 Heavily using [pgoapi](https://github.com/keyphact/pgoapi). Shout-out to the Unknown6 team!
 
