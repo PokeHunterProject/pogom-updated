@@ -1,4 +1,4 @@
-#No longer maintained
+##No longer maintained
 I don't have time to update the scanner every time an API update happens, feel free to send PR's to update this yourself.
 
 PoGoMap
